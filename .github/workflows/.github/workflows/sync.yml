@@ -1,0 +1,27 @@
+# 在您的 fork 仓库中，创建一个名为 `.github/workflows/sync.yml` 的文件。
+
+# 在文件中，添加以下内容:
+
+name: Sync with upstream
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Fetch upstream changes
+        run: git fetch upstream master
+
+      - name: Merge upstream changes
+        run: git merge upstream/master
+
+      - name: Push changes
+        run: git push origin master
